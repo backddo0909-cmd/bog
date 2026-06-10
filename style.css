@@ -1,0 +1,150 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f0f4f8;
+  font-family: "Segoe UI", -apple-system, sans-serif;
+  padding: 20px;
+  /* 스크롤 문제 해결: 좌우 스크롤은 막고 위아래 스크롤(드래그)은 정상 허용 */
+  overflow-x: hidden; 
+  position: relative;
+  transition: background-color 1s ease; 
+}
+
+/* 특수 이펙트 전체 레이어 구조 */
+.effect-layer {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* 1번 이펙트: 장난감 & 뼈다귀 비 (Rain) */
+.falling-toy {
+  position: absolute;
+  top: -40px;
+  font-size: 24px;
+  opacity: 0.8;
+  animation: toyFall linear forwards;
+}
+@keyframes toyFall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.7; }
+  90% { opacity: 0.7; }
+  100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
+}
+
+/* 3번 이펙트: 폭신폭신 털 뭉치 (Fluffy Puff) */
+.fluffy-puff {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(255,255,255,0.5);
+  animation: puffPop 1.8s ease-out forwards;
+}
+@keyframes puffPop {
+  0% { transform: scale(0); opacity: 0; }
+  20% { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(1.6) translateY(-30px); opacity: 0; filter: blur(4px); }
+}
+
+/* 날씨 전용 환경 입자 (비/눈) */
+.weather-drop {
+  position: absolute;
+  background: white;
+  animation: weatherFall linear forwards;
+}
+@keyframes weatherFall {
+  0% { transform: translateY(0); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.6; }
+  100% { transform: translateY(105vh); opacity: 0; }
+}
+
+/* 상단 날씨 배지 */
+.weather-badge {
+  display: inline-block;
+  background: rgba(15, 23, 42, 0.06);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  color: #334155;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+/* 메인 카드 스타일 */
+.card {
+  width: 100%; max-width: 480px;
+  background: white; border-radius: 24px; padding: 24px; text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+  z-index: 10;
+}
+.card-title { font-size: 22px; color: #1e293b; margin-bottom: 12px; }
+
+.stats-bar {
+  display: flex; justify-content: space-around; background: #f8fafc;
+  padding: 8px; border-radius: 12px; margin-bottom: 14px;
+  font-size: 13px; color: #64748b; font-weight: 600;
+}
+
+.card-media { position: relative; width: 100%; margin-bottom: 14px; }
+.image-box { width: 100%; aspect-ratio: 1 / 1; overflow: hidden; border-radius: 20px; background: #f1f5f9; position: relative; }
+#dogImage { width: 100%; height: 100%; object-fit: cover; }
+#loading { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #94a3b8; font-size: 13px; }
+
+/* 능력치 스타일 */
+.stat-overlay {
+  background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(4px);
+  border-radius: 14px; padding: 10px 16px;
+  position: absolute; bottom: 12px; left: 12px; right: 12px; text-align: left;
+}
+.stat-row { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #e2e8f0; margin: 2px 0; }
+.stars { color: #f59e0b; font-weight: bold; letter-spacing: 1px; }
+
+.description-box { background: #f8fafc; border-left: 4px solid #4f7cff; padding: 12px; border-radius: 4px 12px 12px 4px; text-align: left; margin-bottom: 14px; min-height: 85px; }
+#dogBreed { font-size: 14px; color: #1e293b; margin-bottom: 4px; text-transform: uppercase; }
+#aiComment { font-size: 12.5px; color: #475569; line-height: 1.45; }
+
+/* 버튼계 */
+.btn-group { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+button { border: none; padding: 11px 6px; border-radius: 12px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; justify-content: center; align-items: center; gap: 3px; }
+.primary-btn { background: #4f7cff; color: white; }
+.primary-btn:hover { background: #3b66f0; transform: translateY(-2px); }
+.like-btn { background: #ec4899; color: white; }
+.like-btn:hover { background: #db2777; transform: translateY(-2px); }
+.save-btn { background: #0ea5e9; color: white; }
+.save-btn:hover { background: #0284c7; transform: translateY(-2px); }
+button:disabled { background: #cbd5e1; cursor: not-allowed; transform: none !important; }
+
+/* 자동 스위치 */
+.auto-slide-control { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 15px; background: #f1f5f9; padding: 8px; border-radius: 30px; }
+.slide-text { font-size: 12.5px; color: #64748b; font-weight: 500; }
+.switch { position: relative; display: inline-block; width: 38px; height: 20px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #cbd5e1; transition: .3s; }
+.slider:before { position: absolute; content: ""; height: 12px; width: 12px; left: 4px; bottom: 4px; background-color: white; transition: .3s; }
+input:checked + .slider { background-color: #22c55e; }
+input:checked + .slider:before { transform: translateX(18px); }
+.slider.round { border-radius: 20px; }
+.slider.round:before { border-radius: 50%; }
+
+/* 하단 찜 그리드 */
+.favorites-section { text-align: left; border-top: 1px dashed #e2e8f0; padding-top: 12px; }
+.favorites-section h3 { font-size: 12.5px; color: #475569; margin-bottom: 8px; }
+.favorites-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; min-height: 65px; }
+.fav-wrapper { position: relative; width: 100%; aspect-ratio: 1 / 1; cursor: pointer; }
+.fav-item { width: 100%; height: 100%; border-radius: 8px; object-fit: cover; border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: transform 0.2s; }
+.fav-wrapper:hover .fav-item { transform: scale(1.05); filter: brightness(0.7); }
+.fav-wrapper::after { content: "❌"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 11px; opacity: 0; transition: 0.2s; }
+.fav-wrapper:hover::after { opacity: 1; }
+
+@media (max-width: 500px) { .btn-group { grid-template-columns: 1fr; } }
