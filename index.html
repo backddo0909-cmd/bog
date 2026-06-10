@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>마법의 오토 댕댕이 컬렉션</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="weatherLayer" class="effect-layer"></div>
+  <div id="toyRainLayer" class="effect-layer"></div>
+  <div id="puffLayer" class="effect-layer"></div>
+
+  <div class="card">
+    <div class="weather-badge">
+      <span id="weatherIcon">☀️</span> 오늘의 산책 날씨: <strong id="weatherText">맑음</strong>
+    </div>
+
+    <h1 class="card-title">🎴 댕댕이 컬렉션 카드</h1>
+
+    <div class="stats-bar">
+      <span>👁️ 도감 탐색: <strong id="dogCount">0</strong></span>
+      <span>❤️ 마이 펫: <strong id="favCount">0</strong>/5</span>
+    </div>
+
+    <div class="card-media">
+      <div class="image-box">
+        <img id="dogImage" alt="강아지 사진">
+        <p id="loading">강아지를 부르는 중...</p>
+      </div>
+
+      <div class="stat-overlay">
+        <div class="stat-row"><span>귀여움</span><span id="stat-cute" class="stars"></span></div>
+        <div class="stat-row"><span>활동량</span><span id="stat-energy" class="stars"></span></div>
+        <div class="stat-row"><span>친근함</span><span id="stat-friendly" class="stars"></span></div>
+      </div>
+    </div>
+    
+    <div class="description-box">
+      <h3 id="dogBreed">품종 분석 중...</h3>
+      <p id="aiComment">AI의 한마디가 여기에 표시됩니다.</p>
+    </div>
+
+    <div class="btn-group">
+      <button id="newDogBtn" class="primary-btn">🐾 다음 카드</button>
+      <button id="likeBtn" class="like-btn">❤️ 카드 찜하기</button>
+      <button id="saveBtn" class="save-btn">💾 원본 저장</button>
+    </div>
+
+    <div class="auto-slide-control">
+      <label class="switch">
+        <input type="checkbox" id="autoSlideCheck">
+        <span class="slider round"></span>
+      </label>
+      <span class="slide-text">5초마다 자동 드로우</span>
+    </div>
+
+    <div class="favorites-section">
+      <h3>📁 수집한 보관함 <small style="color:#ef4444; font-weight:normal;">(사진을 누르면 찜 취소)</small></h3>
+      <div id="favoritesGrid" class="favorites-grid"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
